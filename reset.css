@@ -1,0 +1,79 @@
+/* reset.css */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+}
+
+/* Remove list styles (bullet points) */
+ol,
+ul {
+  list-style: none;
+}
+
+/* Remove default padding */
+body {
+  padding: 0;
+}
+
+/* Set default font family and size */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* Remove default outline style */
+a,
+button,
+input,
+textarea {
+  outline: none;
+}
+
+/* Remove default border */
+button,
+input,
+textarea {
+  border: none;
+}
+
+/* Remove default background */
+button,
+input,
+textarea {
+  background: none;
+}
+
+/* Remove default text decoration */
+a {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Set default line height */
+body {
+  line-height: 1.5;
+}
+
+/* Remove default text selection */
+::selection {
+  background-color: transparent;
+  color: inherit;
+}
