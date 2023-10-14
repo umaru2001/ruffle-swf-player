@@ -1,0 +1,142 @@
+<html>
+<head>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        #loading{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background: #000;
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #loading div{
+            color: #fff;
+            text-align:center;
+            width: 81px;
+            height: 22px;
+            animation: 10s wordsLoop linear infinite normal
+        }
+    </style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+<div id="container"></div>
+</body>
+<script>
+    /**
+     * url参数获取方法
+     * @param objName
+     * @returns
+     */
+    function GetRequestParam(param){
+        try {
+            var reg = new RegExp("(^|&)" + param + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return '';
+        } catch (_e) {
+            return '';
+        }
+    }
+    window.flashPath = GetRequestParam('flashPath')
+    window.RufflePlayer = window.RufflePlayer || {};
+    window.RufflePlayer.config = {
+        "autoplay":"on",
+        "unmuteOverlay": "hidden",
+    };
+    window.playstatus = 0;
+    window.addEventListener("load", (event) => {
+        const ruffle = window.RufflePlayer.newest();
+        window.player = ruffle.createPlayer();
+        const container = document.getElementById("container");
+        container.appendChild(player);
+        player.style.height = "100%";
+        player.style.width = "100%";
+        player.load("./bombit4.swf").then(() => {
+            console.info("Ruffle successfully loaded the file");
+        }).catch((e) => {
+            console.error(`Ruffle failed to load the file: ${e}`);
+        });
+        var b = setInterval(function(){
+            window.playstatus = player.readyState;
+            if(window.playstatus == 2) {
+                clearInterval(b);
+                window.parent.postMessage({type:"playstatus",data:'1'})
+            }
+        }, 500);
+    });
+</script>
+<script>
+    function loadingRandom(){
+    if(n<95){
+        n += Math.floor(Math.random()*6);
+    }else if(n==99){
+
+    }
+    else {
+        if(Math.floor(Math.random())*10<5){
+            n++
+        }
+    }
+    if(n >= 100 || n < 0 || window.playstatus == 2){
+        document.getElementsByClassName("progress_actived")[0].style.width='100%'
+        document.getElementsByClassName("loading_bottom")[0].children[0].innerText='100%'
+        clearInterval(a);
+        setTimeout(function () {
+            document.getElementsByClassName('loading')[0].style.display='none'
+            document.querySelector("#container > ruffle-player").shadowRoot.querySelector("#context-menu").remove()
+        },1000)
+        window.parent.postMessage({gameKeyBtnShow:"show"});
+        console.log('加载成功')
+    }else{
+        document.getElementsByClassName("progress_actived")[0].style.width=n+'%'
+        document.getElementsByClassName("loading_bottom")[0].children[0].innerText=n+'%';
+    }
+}
+    let loadingCss = document.createElement('link')
+    loadingCss.href='../play-1.css'
+    loadingCss.rel = "stylesheet"
+    let loadingDom = document.createElement('div')
+    loadingDom.className='loading'
+    loadingDom.innerHTML='\n' +
+        '                <div class="loading_con">\n' +
+        '            <div class="progress">\n' +
+        '\n' +
+        '            <div class="progress_actived">\n' +
+        '            <i class="star_b"></i>\n' +
+        '                <i class="star_s star_s1"></i>\n' +
+        '                <i class="star_s star_s2"></i>\n' +
+        '                <i class="star_s star_s3"></i>\n' +
+        '                <i class="star_s star_s4"></i>\n' +
+        '                <i class="star_s star_s5"></i>\n' +
+        '                <i class="star_s star_s6"></i>\n' +
+        '                <i class="star_s star_s7"></i>\n' +
+        '                <i class="star_s star_s8"></i>\n' +
+        '                <i class="star_s star_s9"></i>\n' +
+        '                <i class="star_s star_s10"></i>\n' +
+        '                <i class="star_s star_s11"></i>\n' +
+        '                </div>\n' +
+        '                <p class="loading_bottom">正在加载 <span>0%</span></p>\n' +
+        '            </div>\n' +
+        '            </div>\n'
+    document.getElementsByTagName('head')[0].appendChild(loadingCss)
+    document.getElementsByTagName('body')[0].appendChild(loadingDom)
+    document.getElementsByClassName('loading')[0].style.display='block'
+    let n = 0
+    loadingRandom()
+    let a = setInterval(function(){
+        loadingRandom()
+    }, 200);
+</script>
+<script>
+
+</script>
+<script src="../ruffleJs/ruffle.js"></script>
+</html>
