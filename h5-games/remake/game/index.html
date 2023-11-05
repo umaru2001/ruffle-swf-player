@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="重新来过。然后，接下来会顺利进行。" />
+  <meta name="keywords" content="人生重开模拟器 liferestart life restart remake 人生重来" />
+  <link id="themeLink" rel="stylesheet" href="light.css">
+  <link rel="manifest" href="./manifest.json">
+  <title>人生重开模拟器</title>
+</head>
+
+<body>
+  <div class="banners-container">
+    <div class="banners">
+      <div class="banner error">
+        <div class="banner-icon"><span class="iconfont">&#xe6a1;</span></div>
+        <pre class="banner-message">哎呀！出了点问题！</pre>
+        <div class="banner-close" onclick="hideBanners()"><span class="iconfont">&#xe6a8;</span></div>
+      </div>
+      <div class="banner success">
+        <div class="banner-icon"><span class="iconfont">&#xe6a2;</span></div>
+        <pre class="banner-message">一切都很好！</pre>
+        <div class="banner-close" onclick="hideBanners()"><span class="iconfont">&#xe6a8;</span></div>
+      </div>
+      <div class="banner info">
+        <div class="banner-icon"><span class="iconfont">&#xe6a3;</span></div>
+        <pre class="banner-message">这里有一些有用的信息</pre>
+        <div class="banner-close" onclick="hideBanners()"><span class="iconfont">&#xe6a8;</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./lib/jquery-3.6.0.min.js"></script>
+  <script src="./lib/dom-to-image.min.js"></script>
+  <script src="./public/bundle.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./sw.js', { scope: '.' })
+          .then(function (registration) {
+            console.log('ServiceWorker registration successful');
+          })
+          .catch(function (err) {
+            console.log('ServiceWorker registration failed');
+          });
+      });
+    }
+  </script>
+</body>
+
+</html>
